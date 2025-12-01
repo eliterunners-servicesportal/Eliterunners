@@ -7,29 +7,26 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* ---------- Base / original styles (kept) ---------- */
+    /* ================== GLOBAL ================== */
     body {
       background-color: #000;
       color: #f5f5f5;
       font-family: 'Poppins', sans-serif;
-      /* hidden at first; will be revealed after intro */
       opacity: 0;
       transition: opacity 1s ease;
-      margin: 0;
     }
     .accent { color: #ff4dbd; }
     .btn {
-      background-color: #ff4dbd;
-      color: #000;
+      background-color: #ff4dbd; color: #000;
       padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      font-weight: 600;
+      border-radius: 9999px; font-weight: 600;
       transition: all .3s;
     }
     .btn:hover { background-color: #fff; color: #000; }
     .section { padding: 5rem 1rem; }
 
-    /* ---------- INTRO: layout + letters ---------- */
+    /* ================== INTRO ANIMATION ================== */
+
     #introWrapper {
       position: fixed;
       inset: 0;
@@ -57,43 +54,45 @@
       font-size: 110px;
       line-height: 1;
       opacity: 0;
-      will-change: transform, left, top, opacity;
       pointer-events: none;
+      will-change: transform, left, top, opacity;
     }
 
-    /* starting positions: E top-left, R bottom-right */
-    #letterE { left: 6%; top: 6%; transform: translate(0,0) scale(.8); }
-    #letterR { right: 6%; bottom: 6%; transform: translate(0,0) scale(.8); }
+    /* starting positions */
+    #letterE { left: 6%; top: 6%; transform: scale(.8); }
+    #letterR { right: 6%; bottom: 6%; transform: scale(.8); }
 
-    /* movement keyframes: move to center-left and center-right */
+    /* movements */
     @keyframes moveEtoCenter {
-      0% { left: 6%; top: 6%; opacity: 0; transform: translate(0,0) scale(.8); }
-      60% { left: 45%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      0% { left: 6%; top: 6%; opacity: 0; transform: scale(.8); }
+      60% { left: 46%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
       100% { left: 42%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1.12); }
     }
     @keyframes moveRtoCenter {
-      0% { right: 6%; bottom: 6%; opacity: 0; transform: translate(0,0) scale(.8); }
-      60% { left: 55%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      0% { right: 6%; bottom: 6%; opacity: 0; transform: scale(.8); }
+      60% { left: 54%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
       100% { left: 58%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1.12); }
     }
 
-    /* apply animations when class 'animate' is added */
-    #letterE.animate { animation: moveEtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards; }
-    #letterR.animate { animation: moveRtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards; animation-delay: 0.15s; }
+    #introWrapper.start #letterE {
+      animation: moveEtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards;
+    }
+    #introWrapper.start #letterR {
+      animation: moveRtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards;
+      animation-delay: .12s;
+    }
 
-    /* Title & subtitle under letters */
     .intro-title {
       position: absolute;
       top: 62%;
       left: 50%;
       transform: translateX(-50%);
       font-size: 34px;
-      color: #fff;
+      color: white;
       font-weight: 700;
-      letter-spacing: 2px;
       opacity: 0;
+      letter-spacing: 2px;
       white-space: nowrap;
-      font-family: 'Poppins', sans-serif;
     }
 
     .intro-sub {
@@ -101,36 +100,32 @@
       top: 72%;
       left: 50%;
       transform: translateX(-50%);
-      color: #cfcfcf;
       font-size: 16px;
+      color: #cfcfcf;
       opacity: 0;
     }
 
-    /* Fade out the entire intro wrapper */
     #introWrapper.fade-out {
       animation: introFadeOut 1s forwards;
     }
     @keyframes introFadeOut {
       from { opacity: 1; }
-      to   { opacity: 0; visibility: hidden; }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    /* Small responsive tweak so intro fits small screens */
     @media (max-width: 420px) {
       .intro-letter { font-size: 70px; }
-      .intro-title { font-size: 22px; top: 64%; }
-      .intro-sub { font-size: 14px; top: 74%; }
+      .intro-title { font-size: 22px; }
+      .intro-sub { font-size: 14px; }
     }
 
-    /* ensure the rest of the site is scrollable only after intro removed */
-    #mainContent { position: relative; z-index: 1; }
   </style>
 </head>
 
 <body>
 
-  <!-- ========== INTRO WRAPPER (plays first) ========== -->
-  <div id="introWrapper" aria-hidden="true">
+  <!-- ================== INTRO SCREEN ================== -->
+  <div id="introWrapper">
     <div id="introAnimation">
       <span id="letterE" class="intro-letter">E</span>
       <span id="letterR" class="intro-letter">R</span>
@@ -140,109 +135,107 @@
     </div>
   </div>
 
-  <!-- ========== MAIN SITE (your existing homepage) ========== -->
-  <div id="mainContent">
+  <!-- ================== MAIN CONTENT ================== -->
 
-    <!-- HERO -->
-    <section class="h-screen flex flex-col justify-center items-center text-center">
-      <h1 class="text-5xl md:text-7xl font-extrabold accent mb-2">ELITE RUNNERS</h1>
-      <p class="text-lg md:text-2xl mb-4">We literally go the extra mile for you.</p>
-      <p class="uppercase tracking-wide text-sm text-gray-400 mb-8">#SendUs • Fast • Reliable • Professional</p>
-      <div class="space-x-4">
-        <a href="#services" class="btn">Our Services</a>
-        <a href="#contact" class="btn">Contact Us</a>
+  <!-- HERO -->
+  <section class="h-screen flex flex-col justify-center items-center text-center">
+    <h1 class="text-5xl md:text-7xl font-extrabold accent mb-2">ELITE RUNNERS</h1>
+    <p class="text-lg md:text-2xl mb-4">We literally go the extra mile for you.</p>
+    <p class="uppercase tracking-wide text-sm text-gray-400 mb-8">#SendUs • Fast • Reliable • Professional</p>
+    <div class="space-x-4">
+      <a href="#services" class="btn">Our Services</a>
+      <a href="#contact" class="btn">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section text-center">
+    <h2 class="text-3xl font-bold accent mb-6">Who We Are</h2>
+    <p class="max-w-3xl mx-auto text-gray-300 leading-relaxed">
+      Elite Runners assists PPRA clients, principals, and directors with efficient, trustworthy
+      mediation and administrative support. We handle complex PPRA matters so you can focus
+      on running your real-estate business. Our mission: speed, accuracy, and integrity — every time.
+    </p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section bg-black/90">
+    <h2 class="text-3xl font-bold text-center accent mb-12">Our Services</h2>
+    <div class="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">Trading Name Reservations</h3>
+        <p class="text-gray-400 text-sm">Secure and manage your trading name quickly and correctly.</p>
       </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section text-center">
-      <h2 class="text-3xl font-bold accent mb-6">Who We Are</h2>
-      <p class="max-w-3xl mx-auto text-gray-300 leading-relaxed">
-        Elite Runners assists PPRA clients, principals, and directors with efficient, trustworthy
-        mediation and administrative support. We handle complex PPRA matters so you can focus
-        on running your real-estate business. Our mission: speed, accuracy, and integrity — every time.
-      </p>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="section bg-black/90">
-      <h2 class="text-3xl font-bold text-center accent mb-12">Our Services</h2>
-      <div class="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">Trading Name Reservations</h3>
-          <p class="text-gray-400 text-sm">Secure and manage your trading name quickly and correctly.</p>
-        </div>
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">Firm & Status Registration</h3>
-          <p class="text-gray-400 text-sm">Firm registrations, upgrades, and employment status updates.</p>
-        </div>
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">PDE & CPD Queries</h3>
-          <p class="text-gray-400 text-sm">We resolve PDE 4 & 5, CPD, and FFC-related issues promptly.</p>
-        </div>
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">FFC Renewals</h3>
-          <p class="text-gray-400 text-sm">Hassle-free renewal and management of Fidelity Fund Certificates.</p>
-        </div>
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">De- & Re-Registrations</h3>
-          <p class="text-gray-400 text-sm">Handle applications, exemptions, and reinstatements with ease.</p>
-        </div>
-        <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
-          <h3 class="text-xl font-semibold accent mb-2">Section 27 Queries</h3>
-          <p class="text-gray-400 text-sm">Late audit report submissions and blocked practitioner assistance.</p>
-        </div>
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">Firm & Status Registration</h3>
+        <p class="text-gray-400 text-sm">Firm registrations, upgrades, and employment status updates.</p>
       </div>
-      <p class="text-center mt-10 text-gray-300">And more... We go the extra mile for every client.</p>
-    </section>
 
-    <!-- CTA -->
-    <section class="section text-center">
-      <h2 class="text-3xl font-bold accent mb-4">Need Help With PPRA Matters?</h2>
-      <p class="text-gray-300 mb-6">#SendUs — we’ll handle the rest.</p>
-      <a href="https://wa.me/27680101876" target="_blank" class="btn">Chat on WhatsApp</a>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section bg-black text-center">
-      <h2 class="text-3xl font-bold accent mb-6">Contact Us</h2>
-      <p class="text-gray-300 mb-4">We deliver, then ask for payment after. Integrity first, always.</p>
-      <div class="space-y-2 text-gray-400">
-        <p>📞 +27 68 010 1876 (WhatsApp)</p>
-        <p>📞 +27 73 592 7439</p>
-        <p>📧 runnersgo.eliteservice@gmail.com</p>
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">PDE & CPD Queries</h3>
+        <p class="text-gray-400 text-sm">We resolve PDE 4 & 5, CPD, and FFC-related issues promptly.</p>
       </div>
-      <p class="mt-10 text-xs text-gray-600">© 2025 Elite Runners — All rights reserved.</p>
-    </section>
 
-    <!-- Optional Floating Chat Button (for future AI assistant) -->
-    <button id="chatBtn" class="fixed bottom-6 right-6 bg-pink-500 text-black font-bold p-4 rounded-full shadow-lg hover:scale-110 transition">
-      💬
-    </button>
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">FFC Renewals</h3>
+        <p class="text-gray-400 text-sm">Hassle-free renewal and management of Fidelity Fund Certificates.</p>
+      </div>
 
-  </div> <!-- end mainContent -->
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">De- & Re-Registrations</h3>
+        <p class="text-gray-400 text-sm">Handle applications, exemptions, and reinstatements with ease.</p>
+      </div>
 
-  <!-- ========== SCRIPT: controls intro animation + reveal ========== -->
+      <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
+        <h3 class="text-xl font-semibold accent mb-2">Section 27 Queries</h3>
+        <p class="text-gray-400 text-sm">Late audit report submissions and blocked practitioner assistance.</p>
+      </div>
+
+    </div>
+    <p class="text-center mt-10 text-gray-300">And more... We go the extra mile for every client.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="section text-center">
+    <h2 class="text-3xl font-bold accent mb-4">Need Help With PPRA Matters?</h2>
+    <p class="text-gray-300 mb-6">#SendUs — we’ll handle the rest.</p>
+    <a href="https://wa.me/27680101876" target="_blank" class="btn">Chat on WhatsApp</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section bg-black text-center">
+    <h2 class="text-3xl font-bold accent mb-6">Contact Us</h2>
+    <p class="text-gray-300 mb-4">We deliver, then ask for payment after. Integrity first, always.</p>
+    <div class="space-y-2 text-gray-400">
+      <p>📞 +27 68 010 1876 (WhatsApp)</p>
+      <p>📞 +27 73 592 7439</p>
+      <p>📧 runnersgo.eliteservice@gmail.com</p>
+    </div>
+    <p class="mt-10 text-xs text-gray-600">© 2025 Elite Runners — All rights reserved.</p>
+  </section>
+
+  <!-- CHAT BUTTON -->
+  <button class="fixed bottom-6 right-6 bg-pink-500 text-black font-bold p-4 rounded-full shadow-lg hover:scale-110 transition">
+    💬
+  </button>
+
+  <!-- ================== INTRO SCRIPT ================== -->
   <script>
     (function () {
-      // Elements
-      const E = document.getElementById('letterE');
-      const R = document.getElementById('letterR');
-      const typedTitleEl = document.getElementById('typedTitle');
-      const typedSubEl = document.getElementById('typedSub');
-      const introWrapper = document.getElementById('introWrapper');
+      const wrapper = document.getElementById("introWrapper");
+      const typedTitleEl = document.getElementById("typedTitle");
+      const typedSubEl = document.getElementById("typedSub");
 
-      // Start sequence after DOM ready
-      window.addEventListener('DOMContentLoaded', () => {
-        // tiny delay then trigger sliding animations
-        setTimeout(() => {
-          E.classList.add('animate');
-          R.classList.add('animate');
-        }, 100);
+      function startIntro() {
+        wrapper.classList.add("start");
 
-        // After slide animation (~1.4s), begin typewriter
+        const slideDuration = 1400;
+        const extraDelay = 200;
+
         setTimeout(() => {
-          // Typewriter text
+          // typewriter
           const fullText = "ELITE RUNNERS";
           let i = 0;
           typedTitleEl.style.opacity = 1;
@@ -251,26 +244,35 @@
             typedTitleEl.textContent = fullText.slice(0, i++);
             if (i > fullText.length) {
               clearInterval(typer);
-              // show subtitle
+
               setTimeout(() => {
                 typedSubEl.style.opacity = 1;
-                // after subtitle shows, fade intro and reveal page
+
                 setTimeout(() => {
-                  introWrapper.classList.add('fade-out');
-                  // reveal main page
+                  wrapper.classList.add("fade-out");
+
                   setTimeout(() => {
                     document.body.style.opacity = 1;
-                    // fully remove intro from DOM after it's hidden
-                    setTimeout(() => {
-                      introWrapper.style.display = 'none';
-                    }, 1200);
-                  }, 1100);
-                }, 900);
-              }, 300);
+                    wrapper.style.display = "none";
+                  }, 1200);
+
+                }, 800);
+
+              }, 400);
             }
           }, 90);
 
-        }, 1600); // 1.6s allows the slide animation to complete
+        }, slideDuration + extraDelay);
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        try {
+          startIntro();
+        } catch (err) {
+          console.error(err);
+          wrapper.style.display = "none";
+          document.body.style.opacity = 1;
+        }
       });
     })();
   </script>
