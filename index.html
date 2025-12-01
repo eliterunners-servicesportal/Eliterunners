@@ -5,138 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elite Runners | We literally go the extra mile for you</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
-    /* ================== GLOBAL ================== */
-    body {
-      background-color: #000;
-      color: #f5f5f5;
-      font-family: 'Poppins', sans-serif;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
+    body { background-color: #000; color: #f5f5f5; font-family: 'Poppins', sans-serif; }
     .accent { color: #ff4dbd; }
     .btn {
-      background-color: #ff4dbd; color: #000;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px; font-weight: 600;
-      transition: all .3s;
+      background-color: #ff4dbd; color: #000; padding: 0.75rem 1.5rem;
+      border-radius: 9999px; font-weight: 600; transition: all .3s;
     }
     .btn:hover { background-color: #fff; color: #000; }
     .section { padding: 5rem 1rem; }
+    /* INTRO ANIMATION */
+#intro {
+  animation: fadeOut 1s ease forwards;
+  animation-delay: 5.5s; /* When intro ends */
+}
 
-    /* ================== INTRO ANIMATION ================== */
+#intro-er {
+  position: relative;
+  animation: erMove 1.5s ease forwards;
+}
 
-    #introWrapper {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      z-index: 9999;
-    }
+@keyframes erMove {
+  0% { 
+    opacity: 0;
+    transform: translate(-150px, -150px) scale(0.3);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+}
 
-    #introAnimation {
-      position: relative;
-      width: 100%;
-      height: 60vh;
-      max-height: 420px;
-      min-height: 280px;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-    .intro-letter {
-      position: absolute;
-      font-weight: 800;
-      color: #ff4dbd;
-      font-family: 'Poppins', sans-serif;
-      font-size: 110px;
-      line-height: 1;
-      opacity: 0;
-      pointer-events: none;
-      will-change: transform, left, top, opacity;
-    }
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
 
-    /* starting positions */
-    #letterE { left: 6%; top: 6%; transform: scale(.8); }
-    #letterR { right: 6%; bottom: 6%; transform: scale(.8); }
-
-    /* movements */
-    @keyframes moveEtoCenter {
-      0% { left: 6%; top: 6%; opacity: 0; transform: scale(.8); }
-      60% { left: 46%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
-      100% { left: 42%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1.12); }
-    }
-    @keyframes moveRtoCenter {
-      0% { right: 6%; bottom: 6%; opacity: 0; transform: scale(.8); }
-      60% { left: 54%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1); }
-      100% { left: 58%; top: 42%; opacity: 1; transform: translate(-50%,-50%) scale(1.12); }
-    }
-
-    #introWrapper.start #letterE {
-      animation: moveEtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards;
-    }
-    #introWrapper.start #letterR {
-      animation: moveRtoCenter 1.4s cubic-bezier(.2,.9,.3,1) forwards;
-      animation-delay: .12s;
-    }
-
-    .intro-title {
-      position: absolute;
-      top: 62%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 34px;
-      color: white;
-      font-weight: 700;
-      opacity: 0;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
-
-    .intro-sub {
-      position: absolute;
-      top: 72%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 16px;
-      color: #cfcfcf;
-      opacity: 0;
-    }
-
-    #introWrapper.fade-out {
-      animation: introFadeOut 1s forwards;
-    }
-    @keyframes introFadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    @media (max-width: 420px) {
-      .intro-letter { font-size: 70px; }
-      .intro-title { font-size: 22px; }
-      .intro-sub { font-size: 14px; }
-    }
-
+.hidden-before {
+  opacity: 0;
+}
   </style>
 </head>
 
 <body>
+<!-- INTRO ANIMATION -->
+<div id="intro" class="fixed inset-0 bg-black flex flex-col justify-center items-center z-50">
 
-  <!-- ================== INTRO SCREEN ================== -->
-  <div id="introWrapper">
-    <div id="introAnimation">
-      <span id="letterE" class="intro-letter">E</span>
-      <span id="letterR" class="intro-letter">R</span>
-
-      <div id="typedTitle" class="intro-title"></div>
-      <div id="typedSub" class="intro-sub">We literally go the extra mile for you!</div>
-    </div>
+  <div id="intro-er" class="text-7xl font-extrabold accent opacity-0">
+    ER
   </div>
 
-  <!-- ================== MAIN CONTENT ================== -->
+  <h1 id="intro-title" class="text-4xl font-bold accent mt-4 opacity-0"></h1>
 
+  <p id="intro-sub" class="text-gray-400 mt-4 opacity-0">
+    We literally go the extra mile for you.
+  </p>
+
+</div>
   <!-- HERO -->
   <section class="h-screen flex flex-col justify-center items-center text-center">
     <h1 class="text-5xl md:text-7xl font-extrabold accent mb-2">ELITE RUNNERS</h1>
@@ -152,8 +85,8 @@
   <section id="about" class="section text-center">
     <h2 class="text-3xl font-bold accent mb-6">Who We Are</h2>
     <p class="max-w-3xl mx-auto text-gray-300 leading-relaxed">
-      Elite Runners assists PPRA clients, principals, and directors with efficient, trustworthy
-      mediation and administrative support. We handle complex PPRA matters so you can focus
+      Elite Runners assists PPRA clients, principals, and directors with efficient, trustworthy 
+      mediation and administrative support. We handle complex PPRA matters so you can focus 
       on running your real-estate business. Our mission: speed, accuracy, and integrity — every time.
     </p>
   </section>
@@ -162,37 +95,30 @@
   <section id="services" class="section bg-black/90">
     <h2 class="text-3xl font-bold text-center accent mb-12">Our Services</h2>
     <div class="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">Trading Name Reservations</h3>
         <p class="text-gray-400 text-sm">Secure and manage your trading name quickly and correctly.</p>
       </div>
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">Firm & Status Registration</h3>
         <p class="text-gray-400 text-sm">Firm registrations, upgrades, and employment status updates.</p>
       </div>
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">PDE & CPD Queries</h3>
         <p class="text-gray-400 text-sm">We resolve PDE 4 & 5, CPD, and FFC-related issues promptly.</p>
       </div>
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">FFC Renewals</h3>
         <p class="text-gray-400 text-sm">Hassle-free renewal and management of Fidelity Fund Certificates.</p>
       </div>
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">De- & Re-Registrations</h3>
         <p class="text-gray-400 text-sm">Handle applications, exemptions, and reinstatements with ease.</p>
       </div>
-
       <div class="p-6 border border-pink-500/30 rounded-2xl hover:bg-pink-500/10 transition">
         <h3 class="text-xl font-semibold accent mb-2">Section 27 Queries</h3>
         <p class="text-gray-400 text-sm">Late audit report submissions and blocked practitioner assistance.</p>
       </div>
-
     </div>
     <p class="text-center mt-10 text-gray-300">And more... We go the extra mile for every client.</p>
   </section>
@@ -211,71 +137,47 @@
     <div class="space-y-2 text-gray-400">
       <p>📞 +27 68 010 1876 (WhatsApp)</p>
       <p>📞 +27 73 592 7439</p>
-      <p>📧 runnersgo.eliteservice@gmail.com</p>
+      <p>📧 eliterunners.services@gmail.com</p>
     </div>
     <p class="mt-10 text-xs text-gray-600">© 2025 Elite Runners — All rights reserved.</p>
   </section>
 
-  <!-- CHAT BUTTON -->
+  <!-- Optional Floating Chat Button (for future AI assistant) -->
   <button class="fixed bottom-6 right-6 bg-pink-500 text-black font-bold p-4 rounded-full shadow-lg hover:scale-110 transition">
     💬
   </button>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+  const title = "ELITE RUNNERS";
+  const introTitle = document.getElementById("intro-title");
+  const introSub = document.getElementById("intro-sub");
 
-  <!-- ================== INTRO SCRIPT ================== -->
-  <script>
-    (function () {
-      const wrapper = document.getElementById("introWrapper");
-      const typedTitleEl = document.getElementById("typedTitle");
-      const typedSubEl = document.getElementById("typedSub");
+  // Typewriter effect
+  let index = 0;
+  setTimeout(() => {
+    const typer = setInterval(() => {
+      introTitle.style.opacity = 1;
+      introTitle.textContent += title[index];
+      index++;
 
-      function startIntro() {
-        wrapper.classList.add("start");
-
-        const slideDuration = 1400;
-        const extraDelay = 200;
-
+      if (index >= title.length) {
+        clearInterval(typer);
+        // Show subtitle
         setTimeout(() => {
-          // typewriter
-          const fullText = "ELITE RUNNERS";
-          let i = 0;
-          typedTitleEl.style.opacity = 1;
-
-          const typer = setInterval(() => {
-            typedTitleEl.textContent = fullText.slice(0, i++);
-            if (i > fullText.length) {
-              clearInterval(typer);
-
-              setTimeout(() => {
-                typedSubEl.style.opacity = 1;
-
-                setTimeout(() => {
-                  wrapper.classList.add("fade-out");
-
-                  setTimeout(() => {
-                    document.body.style.opacity = 1;
-                    wrapper.style.display = "none";
-                  }, 1200);
-
-                }, 800);
-
-              }, 400);
-            }
-          }, 90);
-
-        }, slideDuration + extraDelay);
+          introSub.style.animation = "fadeIn 1s forwards";
+        }, 300);
       }
 
-      window.addEventListener("DOMContentLoaded", () => {
-        try {
-          startIntro();
-        } catch (err) {
-          console.error(err);
-          wrapper.style.display = "none";
-          document.body.style.opacity = 1;
-        }
-      });
-    })();
-  </script>
+    }, 80);
+  }, 1500); // After ER animation
 
+  // Fade homepage in after intro
+  setTimeout(() => {
+    document.body.style.opacity = 1;
+  }, 5500);
+
+});
+</script>
 </body>
 </html>
