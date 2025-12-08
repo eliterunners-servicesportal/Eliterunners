@@ -1,0 +1,180 @@
+/* Global */
+body {
+  margin: 0;
+  background: #000;
+  color: #f5f5f5;
+  font-family: Poppins, sans-serif;
+}
+
+.accent { color: #ff4dbd; }
+
+.section {
+  padding: 5rem 1rem;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-text {
+  max-width: 650px;
+  margin: auto;
+  color: #ccc;
+}
+
+/* BUTTON */
+.btn {
+  background: #ff4dbd;
+  padding: 12px 28px;
+  border-radius: 50px;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+}
+
+.hero-slogan {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.hero-tags {
+  margin-top: 15px;
+  color: #888;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+}
+
+/* SERVICES */
+.services-grid {
+  max-width: 800px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  border: 1px solid #ff4dbd55;
+  padding: 20px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.service-card:hover {
+  background: #ff4dbd22;
+}
+
+/* CONTACT */
+.contact-details p {
+  color: #bbb;
+}
+
+.footer {
+  margin-top: 3rem;
+  color: #555;
+}
+
+/* CHAT BUTTON */
+.chat-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #ff4dbd;
+  color: #000;
+  padding: 18px;
+  border-radius: 50%;
+  font-size: 24px;
+  border: none;
+}
+
+/* ------------------------- */
+/*   INTRO ANIMATION STYLES  */
+/* ------------------------- */
+
+.intro-body {
+  text-align: center;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#intro-container {
+  position: relative;
+  margin-top: 40vh;
+}
+
+.intro-letter {
+  position: absolute;
+  font-size: 5rem;
+  font-weight: 900;
+  opacity: 0;
+}
+
+/* Start positions */
+#letter-e {
+  top: -300px;
+  left: -300px;
+}
+
+#letter-r {
+  bottom: -300px;
+  right: -300px;
+}
+
+/* Final position (center) */
+.final-center {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(-50%);
+}
+
+/* Title */
+#full-title {
+  opacity: 0;
+  font-size: 3rem;
+  margin-top: 80px;
+}
+
+#slogan {
+  opacity: 0;
+  margin-top: 20px;
+}
+
+/* Floating logo */
+#floating-logo {
+  width: 120px;
+  margin-top: 50px;
+  opacity: 0;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
